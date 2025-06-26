@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string> words;
+        string word;
+        istringstream iss(s); // creating string into stream
+
+        /// extracting all words and removing extra space
+        while (iss >> word) {
+            words.push_back(word);
+        }
+        // reversing words
+        reverse(words.begin(), words.end());
+        // creating string in the result
+        string res;
+        for (int i = 0; i < words.size(); i++) {
+            res += words[i];
+            if (i != words.size() - 1) {
+                res += " ";
+            }
+        }
+        return res;
+    }
+};
