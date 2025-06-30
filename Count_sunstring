@@ -1,0 +1,42 @@
+//BRUTE FORCE APPROACH
+#include <bits/stdc++.h>
+using namespace std;
+bool isValid(string s){
+     bool hasA=false;
+    bool hasB=false;
+    bool hasC=false;
+    
+    for(char c:s){
+        if(c=='a') { hasA=true;
+        
+        }
+         else if(c=='b')  hasB=true;
+         
+         else if(c=='c')  hasC=true;
+    }
+     if(hasA && hasB && hasC) {
+         return true;
+     }
+     
+     return hasA && hasB && hasC;
+}
+
+int main() {
+    string s="abcabc";
+    int n=s.length();
+   
+    int cnt=0;
+   // cout<<isValid(s)<<endl;
+    for(int i=0;i<n;i++){
+         string res="";
+        for (int j=i;j<n;j++){
+            res+=s[j];
+            if(isValid(res)) cnt++;
+        }
+        
+    }
+    
+    cout<<cnt<<endl;
+      
+    return 0;
+}
