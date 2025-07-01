@@ -1,0 +1,39 @@
+//Brute Force
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(string s) {
+    int freq[26] = {0};
+    for (char c : s) {
+        freq[c - 'a']++;
+    }
+
+    int max_freq = *max_element(freq, freq + 26);
+    int min_freq = INT_MAX;
+
+    for (int i = 0; i < 26; i++) {
+        if (freq[i] != 0 && freq[i] < min_freq) {
+            min_freq = freq[i];
+        }
+    }
+
+    return abs(max_freq - min_freq);  // beauty of this substring
+}
+
+int main() {
+    string s = "aabcbaa";
+    int n = s.size();
+    int total_beauty = 0;
+
+    // Loop over all substrings
+    for (int i = 0; i < n; i++) {
+        string res = "";
+        for (int j = i; j < n; j++) {
+            res += s[j];
+            total_beauty += solve(res);
+        }
+    }
+
+    cout << total_beauty << endl;
+    return 0;
+}
