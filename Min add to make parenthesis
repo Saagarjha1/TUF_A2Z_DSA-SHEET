@@ -1,0 +1,24 @@
+//Brute Force
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+    int cnt=0;
+   stack<char>st;
+   if(s.length()<0) return -1;
+    for (char c : s) {
+        if (c == '(') {
+            st.push(c);
+        } 
+        else if (c == ')') {
+            if (!st.empty() && st.top() == '(') {
+                st.pop();  // matched pair
+            } else {
+                cnt++;  // unmatched closing bracket
+            }
+        }
+    }
+    int n=st.size();
+   int sum=n+cnt;
+   return sum;
+    }
+};
