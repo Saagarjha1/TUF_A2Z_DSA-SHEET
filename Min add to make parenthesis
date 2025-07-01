@@ -22,3 +22,23 @@ public:
    return sum;
     }
 };
+//Optimal solution
+int minAddToMakeValid(string s) {
+        int open = 0;  // count of unmatched '('
+        int add = 0;   // count of unmatched ')'
+
+        for (char c : s) {
+            if (c == '(') {
+                open++;
+            } else if (c == ')') {
+                if (open > 0) {
+                    open--;  // match with previous '('
+                } else {
+                    add++;   // unmatched ')', needs an extra '('
+                }
+            }
+        }
+
+        // Total insertions = unmatched ')' + unmatched '('
+        return add + open;
+    }
