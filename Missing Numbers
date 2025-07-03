@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+    unordered_map<int,bool> mpp;
+    int n=nums.size();
+    for(auto& it:nums){
+        mpp[it]=true;
+    }    
+    for(int i=0;i<=n;i++){
+        if(mpp.find(i)==mpp.end()){
+        return i;
+        }
+    }
+    return -1;
+    }
+};
