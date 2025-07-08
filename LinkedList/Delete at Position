@@ -1,0 +1,35 @@
+void deleteAtPosition(Node*& head, int pos) {
+    // Case 1: Empty list
+    if (head == nullptr) {
+        cout << "List is empty\n";
+        return;
+    }
+
+    // Case 2: Delete the head node
+    if (pos == 1) {
+        Node* toDelete = head;
+        head = head->next;
+        delete toDelete;
+        return;
+    }
+
+    // Traverse to the (pos - 1)th node
+    Node* temp = head;
+    int cnt = 1;
+
+    while (temp != nullptr && cnt < pos - 1) {
+        temp = temp->next;
+        cnt++;
+    }
+
+    // Check if position is invalid
+    if (temp == nullptr || temp->next == nullptr) {
+        cout << "Position out of bounds\n";
+        return;
+    }
+
+    // Delete the node at position
+    Node* toDelete = temp->next;
+    temp->next = temp->next->next;
+    delete toDelete;
+}
