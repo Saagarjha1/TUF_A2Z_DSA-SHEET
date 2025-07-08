@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+// Function to find the middle of the list
+Node* findMiddle(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+// Function to reverse a linked list
+Node* reverseList(Node* head) {
+    Node* prev = nullptr;
+    Node* curr = head;
+    while (curr) {
+        Node* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+// Function to check if the list is a palindrome
+bool isPalindrome(Node* head) {
+    if (!head || !head->next) return true;
+
+    // Step 1: Find middle
+    Node* mid = findMiddle(head);
+
+    // Step 2: Reverse second half
+    Node* secondHalf = reverseList(mid);
+
+    // Step 3: Compare both halves
+    Node* first = head;
+    Node* second = secondHalf;
+    while (second) {
+        if (first->data != second->data) {
+            return false;
+        }
+        first = first->next;
+        second = second->next;
+    }
+
+    // Optional: Restore the list (if required)
+    // reverseList(secondHalf);
+
+    return true;
+}
+
+// Helper function to insert at tail
+void insertAtTail(Node*& head, int val) {
+    Node* newNode = new Node(val);
+    if (!head) {
+        head = newNode;
+        return;
+    }
+    Node* temp = head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+}
+
+// Helper function to print the list
+void printList(Node* head) {
+    while (head) {
+        cout << head->data << " -> ";
+        head = head->next;
+    }
+    cout << "NULL" << endl;
+}
+
+// Main function
+int main() {
+    Node* head = nullptr;
+
+    // Creating a palindrome list: 1 → 2 → 3 → 2 → 1
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    insertAtTail(head, 3);
+    insertAtTail(head, 2);
+    insertAtTail(head, 1);
+
+    cout << "Original List: ";
+    printList(head);
+
+    if (isPalindrome(head))
+        cout << "The list is a palindrome." << endl;
+    else
+        cout << "The list is NOT a palindrome." << endl;
+
+    return 0;
+}
