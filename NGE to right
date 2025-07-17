@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> count_NGE(int n, vector<int> &arr, int queries, vector<int> &indices) {
+        vector<int> nge_count(n, 0); // Stores count of greater elements to the right for each index
+        stack<int> st;
+
+        // Traverse from right to left
+        for(int i = n - 1; i >= 0; i--) {
+            int count = 0;
+            while(!st.empty() && st.top() <= arr[i]) {
+                st.pop();
+            }
+
+            // All elements left in stack are greater
+            count = st.size();
+            nge_count[i] = count;
+
+            st.push(arr[i]);
+        }
+
+        vector<int> res;
+        for(int i = 0; i < queries; i++) {
+            res.push_back(nge_count[indices[i]]);
+        }
+        return res;
+    }
+};
